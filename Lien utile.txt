@@ -1,3 +1,4 @@
 Organisation du projet : 
 Trello - https://trello.com/b/vpKMEaqY/projet-potager
-GitHub - 
+GitHub - https://github.com/Cyril-lavoisier/Projet-Potager
+Figma - https://www.figma.com/file/aK97MPZr7ZpLrvegwdP2aV/Projet-Potager?type=design&mode=design&t=4urj5soJVqLZoJrt-0
