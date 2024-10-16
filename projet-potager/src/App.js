@@ -1,25 +1,123 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+//import HomeIcon from './screens/Home.svg';
 
-function App() {
+// Simples composants pour chaque écran
+function HomeScreen() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <View style={styles.screenContainer}>
+      <Text>Home Screen</Text>
+    </View>
   );
 }
 
-export default App;
+function PlantationScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <Text>Plantation Screen</Text>
+    </View>
+  );
+}
+
+function SemisScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <Text>Semis Screen</Text>
+    </View>
+  );
+}
+
+function ConsommablesScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <Text>Consommables Screen</Text>
+    </View>
+  );
+}
+
+function OutillagesScreen() {
+  return (
+    <View style={styles.screenContainer}>
+      <Text>Outillages Screen</Text>
+    </View>
+  );
+}
+
+export default function App() {
+  const [currentScreen, setCurrentScreen] = useState('Home');
+
+  // Fonction pour rendre l'écran actuel
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case 'Home':
+        return <HomeScreen />;
+      case 'Plantation':
+        return <PlantationScreen />;
+      case 'Semis':
+        return <SemisScreen />;
+      case 'Consommables':
+        return <ConsommablesScreen />;
+      case 'Outillages':
+        return <OutillagesScreen />;
+      default:
+        return <HomeScreen />;
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Affichage de l'écran courant */}
+      {renderScreen()}
+
+      {/* Menu de navigation bas */}
+      <View style={styles.containerMenu}>
+        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Home')}>
+          <Image source={require('./screens/Home.png')} style={styles.menuButton}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Plantation')}>
+          <Image source={require('./screens/Plantation.png')} style={styles.menuButton}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Semis')}>
+          <Image source={require('./screens/Semis.png')} style={styles.menuButton}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Consommables')}>
+          <Image source={require('./screens/Consommables.png')} style={styles.menuButton}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Outillages')}>
+          <Image source={require('./screens/Outillages.png')} style={styles.menuButton}/>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+// Styles pour les composants
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  screenContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  containerMenu: {
+    backgroundColor: '#EBE7CE',
+    flexDirection: 'row',
+    height: 60,
+    borderTopWidth: 1,
+    borderColor: '#ccc',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  menuButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    width: 50, 
+    height: 70,
+  },
+});
