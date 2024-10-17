@@ -1,6 +1,6 @@
-import * as React from 'react';
+/*import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 
 // Simples composants pour chaque écran
 function HomeScreen() {
@@ -54,6 +54,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  banner: {
+    backgroundColor: '#438c6b', 
+    height: 30, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    width: '100%', 
+  },
+  body: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'lightblue',
+  },
   containerMenu: {
     backgroundColor: '#EBE7CE',
     flexDirection: 'row',
@@ -96,27 +109,58 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* Affichage de l'écran courant */}
+      {/* Affichage de l'écran courant }
       {renderScreen()}
 
-      {/* Menu de navigation bas */}
-      <View style={styles.containerMenu}>
-        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Home')}>
-          <Image source={require('../assets/Home.png')} style={styles.menuButton}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Plantation')}>
-          <Image source={require('../assets/Plantation.png')} style={styles.menuButton}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Semis')}>
-          <Image source={require('../assets/Semis.png')} style={styles.menuButton}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Consommables')}>
-          <Image source={require('../assets/Consommables.png')} style={styles.menuButton}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.menuButton} onPress={() => setCurrentScreen('Outillages')}>
-          <Image source={require('../assets/Outillages.png')} style={styles.menuButton}/>
-        </TouchableOpacity>
+      <View style={styles.banner}></View>
+      <View style={styles.body}>
+        <Text>Test Body</Text>
       </View>
+      <View style={styles.containerMenu}>
+        <Pressable style={styles.menuButton} onPress={() => setCurrentScreen('Home')}>
+          <Image source={require('../assets/Home.png')} style={styles.menuButton}/>
+        </Pressable>
+        <Pressable style={styles.menuButton} onPress={() => setCurrentScreen('Plantation')}>
+          <Image source={require('../assets/Plantation.png')} style={styles.menuButton}/>
+        </Pressable>
+        <Pressable style={styles.menuButton} onPress={() => setCurrentScreen('Semis')}>
+          <Image source={require('../assets/Semis.png')} style={styles.menuButton}/>
+        </Pressable>
+        <Pressable style={styles.menuButton} onPress={() => setCurrentScreen('Consommables')}>
+          <Image source={require('../assets/Consommables.png')} style={styles.menuButton}/>
+        </Pressable>
+        <Pressable style={styles.menuButton} onPress={() => setCurrentScreen('Outillages')}>
+          <Image source={require('../assets/Outillages.png')} style={styles.menuButton}/>
+        </Pressable>
+      </View>
+      <View style={styles.banner}></View>
     </View>
   );
 }
+
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+
+const HomeScreen = ({ goToPage }) => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Welcome to the Home Screen</Text>
+      <Button title="Go to Details" onPress={() => goToPage('Details')} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+});
+
+export default HomeScreen;
+*/
