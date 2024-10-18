@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const OutillagesScreen = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', margin: 100 }}>
+    <View>
       <Text>Outillages Screen</Text>
       <Button title="Home" onPress={() => navigation.navigate('Home')} />
       <Button title="Plantations" onPress={() => navigation.navigate('Plantations')} />
