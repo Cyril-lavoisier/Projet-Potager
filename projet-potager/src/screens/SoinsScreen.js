@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet } from 'react-native';
 
-const SemisScreen = () => {
+const QuincailleriesScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
@@ -62,7 +62,7 @@ const SemisScreen = () => {
   );
 };
 
-export default SemisScreen;
+export default QuincailleriesScreen;
 
 const styles = StyleSheet.create({
   mainContainer: {

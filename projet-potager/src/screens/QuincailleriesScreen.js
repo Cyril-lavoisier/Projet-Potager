@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet } from 'react-native';
 
-const SemisScreen = () => {
+const QuincailleriesScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
-        <Text>Apport</Text>
+        <Text>Quincaillerie</Text>
         <Pressable onPress={() => navigation.navigate('Profil')}>
           <Image
             source={require('../assets/Ajouter.png')}
@@ -15,10 +15,11 @@ const SemisScreen = () => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder="Produit" style={styles.textInput}/>
+        <TextInput placeholder="Nom" style={styles.textInput}/>
         <TextInput placeholder="Type" style={styles.textInput}/>
-        <TextInput placeholder="Dernier soin" style={styles.textInput}/>
-        <TextInput placeholder="Frequence" style={styles.textInput}/>
+        <TextInput placeholder="Fournisseur" style={styles.textInput}/>
+        <TextInput placeholder="Prix" style={styles.textInput}/>
+        <TextInput placeholder="Quantité" style={styles.textInput}/>
         <View style={styles.champSaisiGroupButton}>
           <Pressable>
             <Image
@@ -37,10 +38,11 @@ const SemisScreen = () => {
         </View>
       </View>
       <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder="Produit" style={styles.textInput}/>
+        <TextInput placeholder="Nom" style={styles.textInput}/>
         <TextInput placeholder="Type" style={styles.textInput}/>
-        <TextInput placeholder="Dernier soin" style={styles.textInput}/>
-        <TextInput placeholder="Frequence" style={styles.textInput}/>
+        <TextInput placeholder="Fournisseur" style={styles.textInput}/>
+        <TextInput placeholder="Prix" style={styles.textInput}/>
+        <TextInput placeholder="Quantité" style={styles.textInput}/>
         <View style={styles.groupButton}>
           <Pressable>
             <Image
@@ -62,7 +64,7 @@ const SemisScreen = () => {
   );
 };
 
-export default SemisScreen;
+export default QuincailleriesScreen;
 
 const styles = StyleSheet.create({
   mainContainer: {
