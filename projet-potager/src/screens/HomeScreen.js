@@ -5,10 +5,10 @@ import axios from 'axios';
 
 const HomeScreen = () => {
   const navigation = useNavigation(); // Hook pour accéder à l'objet navigation
-  {/*const [message, setMessage] = useState('');*/}
+  //const [message, setMessage] = useState('');
   const [utilisateurs, setUtilisateur] = useState([]); // Ajoute un état pour les utilisateurs
-
-  {/*useEffect(() => {
+/*
+  useEffect(() => {
     // Appel à l'API du backend
     axios.get('http://192.168.1.26:3000/api/hello') // Appelle le backend Express
       .then(response => {
@@ -18,7 +18,8 @@ const HomeScreen = () => {
       .catch(error => {
         console.error('Erreur lors de l\'appel API:', error);
       });
-  }, []);*/}
+  }, []);
+*/
 
   useEffect(() => {
     // Appel à l'API pour récupérer les utilisateurs
@@ -35,7 +36,7 @@ const HomeScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
         <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
-          <Text>Bienvenu {/**{message ? message : 'Chargement...'}*/} {utilisateurs.length > 0 ? utilisateurs[0].nom : 'Chargement...'}</Text>
+          <Text>Bienvenu {/*{message ? message : 'Chargement...'}*/} {utilisateurs.length > 0 ? utilisateurs[0].nom : 'Chargement...'}</Text>
           <Pressable onPress={() => navigation.navigate('Profil')}>
             <Image
               source={require('../assets/Profil.png')}
