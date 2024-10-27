@@ -6,7 +6,7 @@ import axios from 'axios';
 const HomeScreen = () => {
   const navigation = useNavigation(); // Hook pour accéder à l'objet navigation
   {/*const [message, setMessage] = useState('');*/}
-  const [utilisateurs, setUtilisateur] = useState({}); // Ajoute un état pour les utilisateurs
+  const [utilisateurs, setUtilisateur] = useState([]); // Ajoute un état pour les utilisateurs
 
   {/*useEffect(() => {
     // Appel à l'API du backend
