@@ -38,20 +38,6 @@ app.listen(port, () => {
   console.log(`Serveur en cours d\'exécution sur http://localhost:${port}`);
 });
 
-// Route de test pour vérifier si l'API fonctionne
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
-});
-
-app.get('/data', (req, res) => {
-  console.log("Route /data appelée");
-  res.json({ message: "Voici vos données !" });
-});
-
-app.get('/test', (req, res) => {
-  res.send('Test réussi');
-});
-
 1 Ouvrir cmd, se placer dans le repertoire cd C:\Users\Cyril\Desktop\Projet-Potager\projet-potager\backend et executer le code node index.js pour démarrer le serveur
 Les messages : Serveur en cours d'exécution sur http://localhost:3000 et Connecté à la base de données MySQL devrais s'afficher si les ligne de code sont décommenter
 
