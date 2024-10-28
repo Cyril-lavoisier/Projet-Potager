@@ -1,10 +1,42 @@
 const express = require('express');
+const cors = require('cors');
+const utilisateursRoutes = require('./routes/utilisateurs');
+const app = express();
+const port = 3000;
+
+app.use(cors()); // Autorise toutes les origines
+
+app.use('/api/utilisateurs', utilisateursRoutes);
+
+app.listen(port, () => {
+  console.log(`Serveur démarré sur le port ${port}`);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const express = require('express');
 const app = express();
 const port = 3000;
 const db = require('./db');
 const cors = require('cors');
 app.use(cors()); // Permet toutes les origines
-
 // Configuration des routes (si nécessaire) - Se connecter a l'adresse http://localhost:3000 pour verifier le bon fonctionnement du serveur
 app.get('/', (req, res) => {
   res.send('Serveur Express est bien démarré ! ');
@@ -26,6 +58,7 @@ app.get('/api/utilisateurs', (req, res) => {
     }
   });
 });
+*/
 
 /*
 // Configuration des routes (si nécessaire) - Se connecter a l'adresse http://localhost:3000 pour verifier le bon fonctionnement du serveur
