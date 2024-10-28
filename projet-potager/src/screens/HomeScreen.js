@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'; // Importe useNavigation si nécessaire
 import { getUtilisateurs } from '../services/api'; // Appel au service API
+import { getJardins } from '../services/api'; // Appel au service API
 
 const HomeScreen = () => {
   const navigation = useNavigation(); // Hook pour accéder à l'objet navigation
   const [utilisateurs, setUtilisateurs] = useState([]);
+  const [Jardins, setJardins] = useState([]);
   
 
 useEffect(() => {
@@ -16,6 +18,17 @@ useEffect(() => {
     })
     .catch(error => {
       console.error("Erreur lors de la récupération de l'utilisateur:", error);
+    });
+}, []);
+
+useEffect(() => {
+  getJardins()
+    .then(response => {
+      console.log('Jardins reçu:', response.data);
+      setJardins(response.data);
+    })
+    .catch(error => {
+      console.error("Erreur lors de la récupération des jardins:", error);
     });
 }, []);
 
@@ -32,7 +45,7 @@ useEffect(() => {
         </Pressable>
       </View>
       <View style={styles.listJardin}>
-        <Text>Jardin 1</Text>
+        <Text>Jardin {Jardins.length > 0 ? Jardins[0].numero : 'Chargement...'}</Text>
         <Text>Superficie X</Text>
         <Text>Nombre de parcelles X</Text>
       </View>

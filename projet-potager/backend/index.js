@@ -1,12 +1,42 @@
 const express = require('express');
 const cors = require('cors');
-const utilisateursRoutes = require('./routes/utilisateurs');
 const app = express();
 const port = 3000;
-
 app.use(cors()); // Autorise toutes les origines
 
+//Liste des routes
+const apportsRoutes = require('../src/routes/apports');
+const apportsProduitsRoutes = require('../src/routes/apportsProduits');
+const consommablesRoutes = require('../src/routes/consommables');
+const jardinsRoutes = require('../src/routes/jardins');
+const outillagesRoutes = require('../src/routes/outillages');
+const parcellesRoutes = require('../src/routes/parcelles');
+const plantationRoutes = require('../src/routes/plantation');
+const produitsRoutes = require('../src/routes/produits');
+const quincaillerieRoutes = require('../src/routes/quincaillerie');
+const semencesRoutes = require('../src/routes/semences');
+const semisRoutes = require('../src/routes/semis');
+const soinsRoutes = require('../src/routes/soins');
+const soins_produitsRoutes = require('../src/routes/soinsProduits');
+const utilisateursRoutes = require('../src/routes/utilisateurs');
+const varieteRoutes = require('../src/routes/variete');
+
+//Liste des lien vers les API
+app.use('/api/apports', apportsRoutes);
+app.use('/api/apportsProduits', apportsProduitsRoutes);
+app.use('/api/consommables', consommablesRoutes);
+app.use('/api/jardins', jardinsRoutes);
+app.use('/api/outillages', outillagesRoutes);
+app.use('/api/parcelles', parcellesRoutes);
+app.use('/api/plantation', plantationRoutes);
+app.use('/api/produits', produitsRoutes);
+app.use('/api/quincaillerie', quincaillerieRoutes);
+app.use('/api/semences', semencesRoutes);
+app.use('/api/semis', semisRoutes);
+app.use('/api/soins', soinsRoutes);
+app.use('/api/soins_produits', soins_produitsRoutes);
 app.use('/api/utilisateurs', utilisateursRoutes);
+app.use('/api/variete', varieteRoutes);
 
 app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
