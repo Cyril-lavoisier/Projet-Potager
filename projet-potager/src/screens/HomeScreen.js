@@ -6,15 +6,15 @@ import { getJardins } from '../services/api'; // Appel au service API
 
 const HomeScreen = () => {
   const navigation = useNavigation(); // Hook pour accéder à l'objet navigation
-  const [utilisateurs, setUtilisateurs] = useState([]);
-  const [Jardins, setJardins] = useState([]);
+  const [utilisateurs, setUtilisateurs] = useState({});
+  const [Jardins, setJardins] = useState({});
   
 
 useEffect(() => {
   getUtilisateurs()
     .then(response => {
       console.log('Utilisateur reçu:', response.data);
-      setUtilisateurs(response.data);
+      setUtilisateurs(response.data); // Stocke l'objet utilisateur
     })
     .catch(error => {
       console.error("Erreur lors de la récupération de l'utilisateur:", error);
@@ -35,7 +35,7 @@ useEffect(() => {
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
-        <Text>Bienvenu {/*{message ? message : 'Chargement...'}*/} {utilisateurs.length > 0 ? utilisateurs[0].nom : 'Chargement...'}</Text>
+        <Text>Bienvenu {/*{message ? message : 'Chargement...'}*/} {utilisateurs.prenom}</Text>
         <Pressable onPress={() => navigation.navigate('Profil')}>
           <Image
             source={require('../assets/Profil.png')}
@@ -45,9 +45,9 @@ useEffect(() => {
         </Pressable>
       </View>
       <View style={styles.listJardin}>
-        <Text>Jardin {Jardins.length > 0 ? Jardins[0].numero : 'Chargement...'}</Text>
-        <Text>Superficie X</Text>
-        <Text>Nombre de parcelles X</Text>
+        <Text>Jardin {Jardins.numero}</Text>
+        <Text>Superficie {Jardins.superficie}</Text>
+        <Text>Nombre de parcelles {Jardins.nombre_parcelles}</Text>
       </View>
       <View>
         <Pressable onPress={() => navigation.navigate('AjoutParcelles')} style={styles.addButton}>

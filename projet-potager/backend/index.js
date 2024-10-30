@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 app.use(cors()); // Autorise toutes les origines
+app.use(express.json());
 
 //Liste des routes
 const apportsRoutes = require('../src/routes/apports');
