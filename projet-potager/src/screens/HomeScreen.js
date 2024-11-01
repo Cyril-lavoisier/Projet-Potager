@@ -50,7 +50,7 @@ useEffect(() => {
         <Text>Nombre de parcelles {Jardins.nombre_parcelles}</Text>
       </View>
       <View>
-        <Pressable onPress={() => navigation.navigate('AjoutParcelles')} style={styles.addButton}>
+        <Pressable onPress={() => navigation.navigate('Jardins')} style={styles.addButton}>
           <Text>Ajouter un jardin</Text>
           <Image
             source={require('../assets/Ajouter.png')}

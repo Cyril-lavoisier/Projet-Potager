@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TextInput, Pressable, Image } from 'react-native';
 import { getUtilisateurs } from '../services/api'; // Appel au service API
-import { updateData } from '../services/api'; // Appel au service API
 import axios from 'axios';
 
 const ProfilScreen = () => {
@@ -9,12 +8,12 @@ const ProfilScreen = () => {
   const [utilisateurs, setUtilisateurs] = useState({});
   const [isEditing, setIsEditing] = useState(false)
   const [nom, setNom] = useState(utilisateurs.nom || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
-  const [prenom, setPrenom] = useState(utilisateurs.prenom);
-  const [age, setAge] = useState(utilisateurs.age);
-  const [inscription, setInscription] = useState(utilisateurs.inscription);
-  const [pays, setPays] = useState(utilisateurs.pays);
-  const [ville, setVille] = useState(utilisateurs.ville);
-  const [code_postal, setCodePostal] = useState(utilisateurs.code_postal);
+  const [prenom, setPrenom] = useState(utilisateurs.prenom || '');
+  const [age, setAge] = useState(utilisateurs.age || '');
+  const [inscription, setInscription] = useState(utilisateurs.inscription || '');
+  const [pays, setPays] = useState(utilisateurs.pays || '');
+  const [ville, setVille] = useState(utilisateurs.ville || '');
+  const [code_postal, setCodePostal] = useState(utilisateurs.code_postal || '');
 
 useEffect(() => {
   getUtilisateurs()
@@ -34,12 +33,6 @@ const updateDataNom = async () => {
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
       id: 1,
       nom,
-      /*prenom,
-      age,
-      inscription,
-      pays,
-      ville,
-      code_postal,*/
     });
 
     if (response.status === 200) {
