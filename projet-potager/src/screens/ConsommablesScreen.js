@@ -1,12 +1,100 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet } from 'react-native';
+import { getConsommables } from '../services/api'; // Appel au service API
+import axios from 'axios';
 
 const ConsommablesScreen = () => {
+
+  const [consommables, setConsommables] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [nom, setNom] = useState(consommables.nom || '');
+  const [type, setType] = useState(consommables.type || '');
+  const [fournisseur, setFournisseur] = useState(consommables.fournisseur || '');
+  const [prix, setPrix] = useState(consommables.prix || '');
+  const [quantite, setQuantite] = useState(consommables.quantite || '');
+
+  //Récupération des consommables
+  useEffect(() => {
+    getConsommables()
+      .then(response => {
+        console.log('Consommables reçu:', response.data);
+        setConsommables(response.data); // Stocke l'objet utilisateur
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des consommables:", error);
+      });
+  }, []);
+
+  const insertDataConsommables = async () => {
+    try {
+      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      const response = await axios.post('http://192.168.1.26:3000/api/consommables', {
+        id: 4,
+        nom,
+        type,
+        fournisseur,
+        prix,
+        quantite,
+        utilisateur_id : 2,
+      });
+  
+      if (response.status === 200) {
+        console.log("Succès", "Nom mis à jour avec succès");
+      } else {
+        console.log("Erreur", "Échec de la mise à jour");
+      }
+    } catch (error) {
+        console.log("Erreur", "Échec de la mise à jour");
+      console.error(error);
+    }
+  };
+
+  const updateDataConsommables = async () => {
+    try {
+      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      const response = await axios.put('http://192.168.1.26:3000/api/consommables', {
+        id: 4,
+        nom,
+        type,
+        fournisseur,
+        prix,
+        quantite,
+        utilisateur_id : 2,
+      });
+  
+      if (response.status === 200) {
+        console.log("Succès", "Nom mis à jour avec succès");
+      } else {
+        console.log("Erreur", "Échec de la mise à jour");
+      }
+    } catch (error) {
+        console.log("Erreur", "Échec de la mise à jour");
+      console.error(error);
+    }
+  };
+
+  const deleteDataConsommables = async () => {
+    try {
+      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      const response = await axios.delete('http://192.168.1.26:3000/api/consommables', {
+        data: {id: 3}
+      });
+  
+      if (response.status === 200) {
+        console.log("Succès", "Nom mis à jour avec succès");
+      } else {
+        console.log("Erreur", "Échec de la mise à jour");
+      }
+    } catch (error) {
+        console.log("Erreur", "Échec de la mise à jour");
+      console.error(error);
+    }
+  };
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
         <Text>Consommables</Text>
-        <Pressable onPress={() => navigation.navigate('Profil')}>
+        <Pressable onPress={() => setIsEditing(true)}>
           <Image
             source={require('../assets/Ajouter.png')}
             style={styles.button}
@@ -15,20 +103,20 @@ const ConsommablesScreen = () => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder="Nom" style={styles.textInput}/>
-        <TextInput placeholder="Type" style={styles.textInput}/>
-        <TextInput placeholder="Fournisseur" style={styles.textInput}/>
-        <TextInput placeholder="Prix" style={styles.textInput}/>
-        <TextInput placeholder="Quantité" style={styles.textInput}/>
+        <TextInput placeholder={consommables.nom} value={nom} onChangeText={setNom} style={styles.textInput}/>
+        <TextInput placeholder={consommables.type} value={type} onChangeText={setType} style={styles.textInput}/>
+        <TextInput placeholder={consommables.fournisseur} value={fournisseur} onChangeText={setFournisseur} style={styles.textInput}/>
+        <TextInput placeholder={consommables.prix} value={prix} onChangeText={setPrix} style={styles.textInput}/>
+        <TextInput placeholder={consommables.quantite} value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
         <View style={styles.champSaisiGroupButton}>
-          <Pressable>
+          <Pressable onPress={deleteDataConsommables}>
             <Image
               source={require('../assets/Supprimer.png')}
               style={styles.button}
               resizeMode="contain"
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={updateDataConsommables}>
             <Image
               source={require('../assets/Modifier.png')}
               style={styles.button}
@@ -37,21 +125,22 @@ const ConsommablesScreen = () => {
           </Pressable>
         </View>
       </View>
+      {isEditing && (
       <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder="Nom" style={styles.textInput}/>
-        <TextInput placeholder="Type" style={styles.textInput}/>
-        <TextInput placeholder="Fournisseur" style={styles.textInput}/>
-        <TextInput placeholder="Prix" style={styles.textInput}/>
-        <TextInput placeholder="Quantité" style={styles.textInput}/>
+        <TextInput placeholder="Nom" value={nom} onChangeText={setNom} style={styles.textInput}/>
+        <TextInput placeholder="Type" value={type} onChangeText={setType} style={styles.textInput}/>
+        <TextInput placeholder="Fournisseur" value={fournisseur} onChangeText={setFournisseur} style={styles.textInput}/>
+        <TextInput placeholder="Prix" value={prix} onChangeText={setPrix} style={styles.textInput}/>
+        <TextInput placeholder="Quantité" value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
         <View style={styles.groupButton}>
-          <Pressable>
+          <Pressable onPress={insertDataConsommables}>
             <Image
               source={require('../assets/Confirmer.png')}
               style={styles.button}
               resizeMode="contain"
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => setIsEditing(false)}>
             <Image
               source={require('../assets/Annuler.png')}
               style={styles.button}
@@ -60,6 +149,7 @@ const ConsommablesScreen = () => {
           </Pressable>
         </View>
       </View>
+      )}
     </ScrollView>
   );
 };
