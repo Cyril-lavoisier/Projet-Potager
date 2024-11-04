@@ -19,10 +19,10 @@ exports.getPlantation = (req, res) => {
 //Insert plantation
 exports.insertDataPlantation = (req, res) => {
   console.log(req.body);
-  const {id, quantite, Variete_id, Variete_Produits_id, date} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  const {id, updateQuantite, updateVariete_id, updateVariete_Produits_id, updateDate} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
 
   const query = 'INSERT INTO plantation (id, quantite, Variete_id, Variete_Produits_id, date) VALUES(?, ?, ?, ?, ?)';
-  db.query(query, [ id, quantite, Variete_id, Variete_Produits_id, date ], (error, results) => {
+  db.query(query, [ id, updateQuantite, updateVariete_id, updateVariete_Produits_id, updateDate ], (error, results) => {
     if (error) {
       console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
       res.status(500).json({ error: 'Erreur serveur' });

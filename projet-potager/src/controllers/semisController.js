@@ -18,10 +18,10 @@ exports.getSemis = (req, res) => {
 //Insert plantation
 exports.insertDataSemis = (req, res) => {
   console.log(req.body);
-  const {id, quantite, Variete_id, Variete_Produits_id} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  const {id, updateQuantite, updateVariete_id, updateVariete_Produits_id} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
 
   const query = 'INSERT INTO semis (id, quantite, Variete_id, Variete_Produits_id) VALUES(?, ?, ?, ?)';
-  db.query(query, [ id, quantite, Variete_id, Variete_Produits_id ], (error, results) => {
+  db.query(query, [ id, updateQuantite, updateVariete_id, updateVariete_Produits_id ], (error, results) => {
     if (error) {
       console.error('Erreur lors de la mise à jour du semis:', error);
       res.status(500).json({ error: 'Erreur serveur' });

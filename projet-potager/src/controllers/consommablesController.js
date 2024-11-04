@@ -18,10 +18,10 @@ exports.getConsommables = (req, res) => {
 //Insert plantation
 exports.insertDataConsommables = (req, res) => {
   console.log(req.body);
-  const {id, nom, type, fournisseur, prix, quantite, Utilisateurs_id} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  const {id, updateNom, updateType, updateFournisseur, updatePrix, updateQuantite, utilisateurs_id} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
 
   const query = 'INSERT INTO consommables (id, nom, type, fournisseur, prix, quantite, Utilisateurs_id) VALUES(?, ?, ?, ?, ?, ?, ?)';
-  db.query(query, [ id, nom, type, fournisseur, prix, quantite, Utilisateurs_id ], (error, results) => {
+  db.query(query, [ id, updateNom, updateType, updateFournisseur, updatePrix, updateQuantite, utilisateurs_id ], (error, results) => {
     if (error) {
       console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
       res.status(500).json({ error: 'Erreur serveur' });

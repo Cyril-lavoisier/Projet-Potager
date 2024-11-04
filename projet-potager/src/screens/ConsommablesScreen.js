@@ -12,6 +12,11 @@ const ConsommablesScreen = () => {
   const [fournisseur, setFournisseur] = useState(consommables.fournisseur || '');
   const [prix, setPrix] = useState(consommables.prix || '');
   const [quantite, setQuantite] = useState(consommables.quantite || '');
+  const [updateNom, setUpdateNom] = useState('');
+  const [updateType, setUpdateType] = useState('');
+  const [updateFournisseur, setUpdateFournisseur] = useState('');
+  const [updatePrix, setUpdatePrix] = useState('');
+  const [updateQuantite, setUpdateQuantite] = useState('');
 
   //Récupération des consommables
   useEffect(() => {
@@ -30,12 +35,12 @@ const ConsommablesScreen = () => {
       // Appelez ici votre API ou votre fonction de mise à jour avec axios
       const response = await axios.post('http://192.168.1.26:3000/api/consommables', {
         id: 4,
-        nom,
-        type,
-        fournisseur,
-        prix,
-        quantite,
-        utilisateur_id : 2,
+        updateNom,
+        updateType,
+        updateFournisseur,
+        updatePrix,
+        updateQuantite,
+        utilisateurs_id : 2,
       });
   
       if (response.status === 200) {
@@ -127,11 +132,11 @@ const ConsommablesScreen = () => {
       </View>
       {isEditing && (
       <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder="Nom" value={nom} onChangeText={setNom} style={styles.textInput}/>
-        <TextInput placeholder="Type" value={type} onChangeText={setType} style={styles.textInput}/>
-        <TextInput placeholder="Fournisseur" value={fournisseur} onChangeText={setFournisseur} style={styles.textInput}/>
-        <TextInput placeholder="Prix" value={prix} onChangeText={setPrix} style={styles.textInput}/>
-        <TextInput placeholder="Quantité" value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
+        <TextInput placeholder="Nom" value={updateNom} onChangeText={setUpdateNom} style={styles.textInput}/>
+        <TextInput placeholder="Type" value={updateType} onChangeText={setUpdateType} style={styles.textInput}/>
+        <TextInput placeholder="Fournisseur" value={updateFournisseur} onChangeText={setUpdateFournisseur} style={styles.textInput}/>
+        <TextInput placeholder="Prix" value={updatePrix} onChangeText={setUpdatePrix} style={styles.textInput}/>
+        <TextInput placeholder="Quantité" value={updateQuantite} onChangeText={setUpdateQuantite} style={styles.textInput}/>
         <View style={styles.groupButton}>
           <Pressable onPress={insertDataConsommables}>
             <Image

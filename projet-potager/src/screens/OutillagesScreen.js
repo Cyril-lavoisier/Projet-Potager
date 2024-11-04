@@ -1,12 +1,72 @@
-import React from 'react';
-import { View, Text, TextInput, Pressable, Image, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet } from 'react-native';
+import { getOutillages } from '../services/api'; // Appel au service API
+import axios from 'axios';
 
 const OutillagesScreen = () => {
+
+  const [outillages, setOutillages] = useState({});
+  const [nom, setNom] = useState(outillages.nom || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
+  const [updateNom, setUpdateNom] = useState('');
+  //const [longevite, setLongevite] = useState(outillages.longevite || '');
+  const [isEditing, setIsEditing] = useState(false)
+
+//Récupération des parcelles
+  useEffect(() => {
+    getOutillages()
+      .then(response => {
+        console.log('Outillages reçu:', response.data);
+        setOutillages(response.data); // Stocke l'objet utilisateur
+      })
+      .catch(error => {
+        console.error("Erreur lors de la récupération des outillages:", error);
+      });
+  }, []);
+
+  const insertDataOutillages = async () => {
+    try {
+      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      const response = await axios.post('http://192.168.1.26:3000/api/outillages', {
+        id: 3,
+        updateNom,
+        longevite: 5,
+        utilisateurs_id: 1
+      });
+  
+      if (response.status === 200) {
+        console.log("Succès", "Nom mis à jour avec succès");
+      } else {
+        console.log("Erreur", "Échec de la mise à jour");
+      }
+    } catch (error) {
+        console.log("Erreur", "Échec de la mise à jour");
+      console.error(error);
+    }
+  };
+
+  const deleteDataOutillages = async () => {
+    try {
+      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      const response = await axios.delete('http://192.168.1.26:3000/api/outillages', {
+        data: {id: 1}
+      });
+  
+      if (response.status === 200) {
+        console.log("Succès", "Nom mis à jour avec succès");
+      } else {
+        console.log("Erreur", "Échec de la mise à jour");
+      }
+    } catch (error) {
+        console.log("Erreur", "Échec de la mise à jour");
+      console.error(error);
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
         <Text>Outillages</Text>
-        <Pressable onPress={() => navigation.navigate('Profil')}>
+        <Pressable onPress={() => setIsEditing(true)}>
           <Image
             source={require('../assets/Ajouter.png')}
             style={styles.button}
@@ -15,8 +75,8 @@ const OutillagesScreen = () => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder="Nom de l'outil Longévité" style={styles.textInput}/>
-        <Pressable>
+        <TextInput placeholder={outillages.nom} value={nom} onChangeText={setNom} style={styles.textInput}/>
+        <Pressable onPress={deleteDataOutillages}>
           <Image
             source={require('../assets/Supprimer.png')}
             style={styles.button}
@@ -24,18 +84,18 @@ const OutillagesScreen = () => {
           />
         </Pressable>
       </View>
+      {isEditing && (
       <View style={styles.confirmationAnnulation}>
-        <Text>Nom de l'outil</Text>
-        <Text>Longévité</Text>
+        <TextInput placeholder={outillages.nom} value={updateNom} onChangeText={setUpdateNom} style={styles.textInput}/>
         <View style={styles.groupButton}>
-          <Pressable>
+          <Pressable onPress={insertDataOutillages}>
             <Image
               source={require('../assets/Confirmer.png')}
               style={styles.button}
               resizeMode="contain"
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => setIsEditing(false)}>
             <Image
               source={require('../assets/Annuler.png')}
               style={styles.button}
@@ -44,6 +104,7 @@ const OutillagesScreen = () => {
           </Pressable>
         </View>
       </View>
+      )}
     </ScrollView>
   );
 };

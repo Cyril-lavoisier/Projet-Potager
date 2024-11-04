@@ -9,6 +9,9 @@ const SemisScreen = () => {
   const [Variete_Produits_id, setVariete_Produits_id] = useState(semis.Variete_Produits_id || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
   const [Variete_id, setVariete_id] = useState(semis.Variete_id || '');
   const [quantite, setQuantite] = useState(semis.quantite || '');
+  const [updateVariete_Produits_id, setUpdateVariete_Produits_id] = useState(''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
+  const [updateVariete_id, setUpdateVariete_id] = useState('');
+  const [updateQuantite, setUpdateQuantite] = useState('');
   const [isEditing, setIsEditing] = useState(false)
 
 //Récupération des plantations
@@ -28,9 +31,9 @@ useEffect(() => {
       // Appelez ici votre API ou votre fonction de mise à jour avec axios
       const response = await axios.post('http://192.168.1.26:3000/api/semis', {
         id: 2,
-        quantite,
-        Variete_id,
-        Variete_Produits_id,
+        updateQuantite,
+        updateVariete_id,
+        updateVariete_Produits_id,
       });
   
       if (response.status === 200) {
@@ -118,9 +121,9 @@ useEffect(() => {
       </View>
       {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
       <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder="Produit" value={Variete_Produits_id} onChangeText={setVariete_Produits_id} style={styles.textInput}/>
-        <TextInput placeholder="Variété" value={Variete_id} onChangeText={setVariete_id} style={styles.textInput}/>
-        <TextInput placeholder="Quantité" value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
+        <TextInput placeholder="Produit" value={updateVariete_Produits_id} onChangeText={setUpdateVariete_Produits_id} style={styles.textInput}/>
+        <TextInput placeholder="Variété" value={updateVariete_id} onChangeText={setUpdateVariete_id} style={styles.textInput}/>
+        <TextInput placeholder="Quantité" value={updateQuantite} onChangeText={setUpdateQuantite} style={styles.textInput}/>
         <View style={styles.groupButton}>
           <Pressable onPress={insertDataSemis}>
             <Image
