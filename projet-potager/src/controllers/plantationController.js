@@ -37,10 +37,10 @@ exports.insertDataPlantation = (req, res) => {
 //Update plantation
 exports.updateDataPlantation = (req, res) => {
   console.log(req.body);
-  const {numero, superficie, Jardin_id, Jardins_Utilisateurs_id} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  const {id, quantite, Variete_id, Variete_Produits_id, date} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
 
-  const query = 'INSERT INTO parcelles (numero, superficie, Jardins_id, Jardins_Utilisateurs_id) VALUES(?, ?, ?, ?)';
-  db.query(query, [ numero, superficie, Jardin_id, Jardins_Utilisateurs_id ], (error, results) => {
+  const query = 'UPDATE plantation SET quantite = ?, Variete_id = ?, Variete_Produits_id = ?, date = ? WHERE id = ?'; //UPDATE utilisateurs SET ville = ? WHERE id = ?'
+  db.query(query, [ quantite, Variete_id, Variete_Produits_id, date, id ], (error, results) => {
     if (error) {
       console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
       res.status(500).json({ error: 'Erreur serveur' });
