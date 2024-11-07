@@ -1,66 +1,113 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet } from 'react-native';
-import { getOutillages } from '../services/api'; // Appel au service API
+import { View, Text, TextInput, Pressable, Image, ScrollView, StyleSheet, FlatList} from 'react-native';
 import axios from 'axios';
 
 const OutillagesScreen = () => {
-
-  const [outillages, setOutillages] = useState({});
-  const [nom, setNom] = useState(outillages.nom || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
-  const [updateNom, setUpdateNom] = useState('');
-  //const [longevite, setLongevite] = useState(outillages.longevite || '');
+  const [outillages, setOutillages] = useState([]);  // Liste principale des outillages
+  const [nom, setNom] = useState(outillages.nom || '');
+  const [longevite, setLongevite] = useState(outillages.longevite || '');
+  const [Utilisateurs_id, setUtilisateurs_id] = useState(outillages.Utilisateurs_id || '');
   const [isEditing, setIsEditing] = useState(false)
 
-//Récupération des parcelles
   useEffect(() => {
-    getOutillages()
-      .then(response => {
-        console.log('Outillages reçu:', response.data);
-        setOutillages(response.data); // Stocke l'objet utilisateur
-      })
-      .catch(error => {
-        console.error("Erreur lors de la récupération des outillages:", error);
-      });
+    // Récupérez les outils depuis l'API
+    fetchOutillages();
   }, []);
 
+  //Récupération des outils
+  const fetchOutillages = async () => {
+    try {
+      const response = await axios.get('http://192.168.1.26:3000/api/outillages');
+      setOutillages(
+        response.data.map(item => ({
+          ...item,
+        }))
+      );
+    } catch (error) {
+      console.error("Erreur lors de la récupération des outils:", error);
+    }
+  };
+
+  //CRUD des donnée
   const insertDataOutillages = async () => {
     try {
-      // Appelez ici votre API ou votre fonction de mise à jour avec axios
+      // Assurez-vous que les valeurs sont définies et affichez-les pour vérification
+      console.log("Valeurs insérées :", { nom, longevite, Utilisateurs_id });
+      // Appelez votre API d'insertion
       const response = await axios.post('http://192.168.1.26:3000/api/outillages', {
-        id: 3,
-        updateNom,
-        longevite: 5,
-        utilisateurs_id: 1
+        nom, 
+        longevite: 5, 
+        Utilisateurs_id: 1
       });
   
       if (response.status === 200) {
-        console.log("Succès", "Nom mis à jour avec succès");
+        console.log("Succès", "Plantation insérée avec succès");
+        fetchOutillages();
       } else {
-        console.log("Erreur", "Échec de la mise à jour");
+        console.log("Erreur", "Échec de l'insertion");
       }
     } catch (error) {
-        console.log("Erreur", "Échec de la mise à jour");
+      console.log("Erreur", "Échec de l'insertion");
       console.error(error);
     }
   };
 
-  const deleteDataOutillages = async () => {
+  /*
+  const updateDataOutillages = async (plantation) => {
     try {
-      // Appelez ici votre API ou votre fonction de mise à jour avec axios
-      const response = await axios.delete('http://192.168.1.26:3000/api/outillages', {
-        data: {id: 1}
-      });
-  
-      if (response.status === 200) {
-        console.log("Succès", "Nom mis à jour avec succès");
-      } else {
-        console.log("Erreur", "Échec de la mise à jour");
-      }
+      await axios.put(`http://192.168.1.26:3000/api/outillages/`, { ...outillages});
+      console.log("Mise à jour réussie pour l'ID:", outillages.id);
+      fetchOutillages(); // Actualise la liste des outillages après mise à jour
     } catch (error) {
-        console.log("Erreur", "Échec de la mise à jour");
-      console.error(error);
+      console.error("Erreur lors de la mise à jour de l'outil:", error);
     }
   };
+  */
+
+  const deleteDataOutillages = async (id) => {
+    try {
+      await axios.delete('http://192.168.1.26:3000/api/outillages/', {
+        data: { id: id }, // Passez l'ID dans le corps de la requête
+      });
+      setOutillages(outillages.filter((item) => item.id !== id));
+      fetchOutillages();
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la outillages:", error);
+    }
+  };
+
+  // Met à jour l'état principal avec formatage uniquement si la date est complète
+  const handleUpdateOutillages = (id, field, value) => {
+    setOutillages((prevOutillages) =>
+      prevOutillages.map((outillages) =>
+        outillages.id === id ? { ...outillages, [field]: value } : outillages
+      )
+    );
+  };
+
+  const renderOutillagesItem = ({ item }) => (
+    <View style={styles.champSaisi}>
+      <Text>ID: {item.id}</Text>
+      <TextInput
+        placeholder="Nom de l'outil"
+        value={item.nom?.toString()}
+        onChangeText={(value) => handleUpdateOutillages(item.id, 'nom', value)}
+        style={styles.textInput}
+      />
+
+      <View style={styles.champSaisiGroupButton}>
+        {/* Bouton de suppression */}
+        <Pressable onPress={() => deleteDataOutillages(item.id)}>
+          <Image source={require('../assets/Supprimer.png')} style={styles.button} resizeMode="contain" />
+        </Pressable>
+        {/* Bouton de mise à jour
+        <Pressable onPress={() => updateDataOutillages(item)}>
+          <Image source={require('../assets/Modifier.png')} style={styles.button} resizeMode="contain" />
+        </Pressable>
+        */}
+      </View>
+    </View>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
@@ -74,19 +121,15 @@ const OutillagesScreen = () => {
           />
         </Pressable>
       </View>
+      <FlatList
+        data={outillages}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderOutillagesItem}
+        contentContainerStyle={styles.mainContainer}
+      />
+      {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
       <View style={styles.champSaisi}>
-        <TextInput placeholder={String(outillages.nom || "Nom")} value={nom} onChangeText={setNom} style={styles.textInput}/>
-        <Pressable onPress={deleteDataOutillages}>
-          <Image
-            source={require('../assets/Supprimer.png')}
-            style={styles.button}
-            resizeMode="contain"
-          />
-        </Pressable>
-      </View>
-      {isEditing && (
-      <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder={String(outillages.nom || "Nom")} value={updateNom} onChangeText={setUpdateNom} style={styles.textInput}/>
+        <TextInput placeholder="Nom de l'outil" value={nom} onChangeText={setNom} style={styles.textInput}/>
         <View style={styles.groupButton}>
           <Pressable onPress={insertDataOutillages}>
             <Image
