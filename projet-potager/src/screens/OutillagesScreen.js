@@ -75,7 +75,7 @@ const OutillagesScreen = () => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder={outillages.nom} value={nom} onChangeText={setNom} style={styles.textInput}/>
+        <TextInput placeholder={String(outillages.nom || "Nom")} value={nom} onChangeText={setNom} style={styles.textInput}/>
         <Pressable onPress={deleteDataOutillages}>
           <Image
             source={require('../assets/Supprimer.png')}
@@ -86,7 +86,7 @@ const OutillagesScreen = () => {
       </View>
       {isEditing && (
       <View style={styles.confirmationAnnulation}>
-        <TextInput placeholder={outillages.nom} value={updateNom} onChangeText={setUpdateNom} style={styles.textInput}/>
+        <TextInput placeholder={String(outillages.nom || "Nom")} value={updateNom} onChangeText={setUpdateNom} style={styles.textInput}/>
         <View style={styles.groupButton}>
           <Pressable onPress={insertDataOutillages}>
             <Image

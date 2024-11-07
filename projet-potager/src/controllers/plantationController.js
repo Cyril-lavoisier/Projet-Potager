@@ -3,13 +3,13 @@ const db = require('../../backend/db');
 //Select plantation
 exports.getPlantation = (req, res) => {
   const query = 
-  'SELECT p.id, p.quantite, p.date, v.nom AS Variete_nom, pr.nom AS Produit_nom FROM plantation p JOIN variete v ON p.Variete_id = v.id JOIN Produits pr ON p.Variete_Produits_id = pr.id';
+  'SELECT p.id, p.quantite, p.date, v.nom AS Variete_nom, pr.nom AS Produit_nom FROM plantation p JOIN variete v ON p.Variete_id = v.id JOIN Produits pr ON p.Variete_Produits_id = pr.id ORDER BY p.id ASC';
   db.query(query, (error, results) => {
     if (error) {
       console.error('Erreur lors de la récupération des plantation', error);
       res.status(500).json({ error: 'Erreur serveur' });
     } else if (results.length > 0) {
-      res.json(results[0]); // Renvoie seulement le premier plantation comme objet
+      res.json(results); // Renvoie tous les résultats sous forme de tableau
     } else {
       res.status(404).json({ error: "plantation non trouvé" });
     }
@@ -18,13 +18,19 @@ exports.getPlantation = (req, res) => {
 
 //Insert plantation
 exports.insertDataPlantation = (req, res) => {
-  console.log(req.body);
-  const {id, updateQuantite, updateVariete_id, updateVariete_Produits_id, updateDate} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  console.log("Données reçues dans la requête :", req.body);
 
-  const query = 'INSERT INTO plantation (id, quantite, Variete_id, Variete_Produits_id, date) VALUES(?, ?, ?, ?, ?)';
-  db.query(query, [ id, updateQuantite, updateVariete_id, updateVariete_Produits_id, updateDate ], (error, results) => {
+  const { quantite, Variete_id, Variete_Produits_id, date } = req.body;
+
+  // Si les champs requis sont absents, retournez une erreur
+  if (!quantite || !Variete_id || !Variete_Produits_id || !date) {
+    return res.status(400).json({ error: "Tous les champs sont requis" });
+  }
+
+  const query = 'INSERT INTO plantation (quantite, Variete_id, Variete_Produits_id, date) VALUES (?, ?, ?, ?)';
+  db.query(query, [quantite, Variete_id, Variete_Produits_id, date], (error, results) => {
     if (error) {
-      console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
+      console.error('Erreur lors de l\'insertion des données :', error);
       res.status(500).json({ error: 'Erreur serveur' });
     } else if (results.affectedRows > 0) {
       res.json({ message: 'Données insérées avec succès' });
@@ -34,21 +40,65 @@ exports.insertDataPlantation = (req, res) => {
   });
 };
 
-//Update plantation
 exports.updateDataPlantation = (req, res) => {
-  console.log(req.body);
-  const {id, quantite, Variete_id, Variete_Produits_id, date} = req.body; // Assurez-vous d'adapter les champs aux données de votre soin
+  const { id, quantite, Variete_id, Variete_Produits_id, date } = req.body;
 
-  const query = 'UPDATE plantation SET quantite = ?, Variete_id = ?, Variete_Produits_id = ?, date = ? WHERE id = ?'; //UPDATE utilisateurs SET ville = ? WHERE id = ?'
-  db.query(query, [ quantite, Variete_id, Variete_Produits_id, date, id ], (error, results) => {
+  // Vérifiez d'abord si un ID est fourni
+  if (!id) {
+    return res.status(400).json({ error: "L'ID est requis pour la mise à jour." });
+  }
+
+  // Récupérez les données actuelles de la plantation
+  const selectQuery = 'SELECT quantite, Variete_id, Variete_Produits_id, date FROM plantation WHERE id = ?';
+  db.query(selectQuery, [id], (error, results) => {
     if (error) {
-      console.error('Erreur lors de la mise à jour de l\'utilisateur:', error);
-      res.status(500).json({ error: 'Erreur serveur' });
-    } else if (results.affectedRows > 0) {
-      res.json({ message: 'Données insérées avec succès' });
-    } else {
-      res.status(404).json({ error: 'Insertion échouée' });
+      console.error('Erreur lors de la récupération des données:', error);
+      return res.status(500).json({ error: 'Erreur serveur' });
     }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Enregistrement non trouvé' });
+    }
+
+    // Données actuelles de la plantation
+    const currentData = results[0];
+    const updates = [];
+    const values = [];
+
+    // Comparez chaque champ avec la valeur actuelle et ajoutez seulement les champs modifiés
+    if (quantite !== undefined && quantite !== currentData.quantite) {
+      updates.push('quantite = ?');
+      values.push(quantite);
+    }
+    if (Variete_id !== undefined && Variete_id !== currentData.Variete_id) {
+      updates.push('Variete_id = ?');
+      values.push(Variete_id);
+    }
+    if (Variete_Produits_id !== undefined && Variete_Produits_id !== currentData.Variete_Produits_id) {
+      updates.push('Variete_Produits_id = ?');
+      values.push(Variete_Produits_id);
+    }
+    if (date !== undefined && date !== currentData.date) {
+      updates.push('date = ?');
+      values.push(date);
+    }
+
+    // Si aucun champ n'est modifié, retournez une réponse indiquant qu'il n'y a rien à mettre à jour
+    if (updates.length === 0) {
+      return res.status(400).json({ message: "Aucun changement détecté pour la mise à jour." });
+    }
+
+    // Construisez et exécutez la requête SQL de mise à jour
+    const updateQuery = `UPDATE plantation SET ${updates.join(', ')} WHERE id = ?`;
+    values.push(id);
+
+    db.query(updateQuery, values, (updateError, updateResults) => {
+      if (updateError) {
+        console.error('Erreur lors de la mise à jour:', updateError);
+        return res.status(500).json({ error: 'Erreur serveur' });
+      }
+      res.json({ message: 'Donnée mise à jour avec succès' });
+    });
   });
 };
 
@@ -73,3 +123,5 @@ exports.deleteDataPlantation = (req, res) => {
     }
   });
 };
+
+/* Si vous obtenez une erreur 500 en choisissant courgette en produit et marmande en variete cela est normal, la variete ne correspond pas au produit dans la base de donnée, cela évite aussi les erreurs d'insertion pour les utilisateurs */

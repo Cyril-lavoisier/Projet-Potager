@@ -23,7 +23,7 @@ export default function App() {
           tabBarIcon: () => {
             let Icon;
             
-            if (route.name === 'Home') {
+            if (route.name === 'HomeStackNavigator') {
               Icon = require('./src/assets/Home.png');
             }
 
@@ -57,7 +57,7 @@ export default function App() {
           headerShown: false,
         })}
       >
-          <Tab.Screen styles={styles.button} name="Home" component={HomeStackNavigator} options={{title: ''}}/>
+          <Tab.Screen styles={styles.button} name="HomeStackNavigator" component={HomeStackNavigator} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Plantations" component={PlantationsScreen} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Semis" component={SemisScreen} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Consommables" component={ConsommablesScreen} options={{title: ''}}/>

@@ -108,11 +108,11 @@ const ConsommablesScreen = () => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder={consommables.nom} value={nom} onChangeText={setNom} style={styles.textInput}/>
-        <TextInput placeholder={consommables.type} value={type} onChangeText={setType} style={styles.textInput}/>
-        <TextInput placeholder={consommables.fournisseur} value={fournisseur} onChangeText={setFournisseur} style={styles.textInput}/>
-        <TextInput placeholder={consommables.prix} value={prix} onChangeText={setPrix} style={styles.textInput}/>
-        <TextInput placeholder={consommables.quantite} value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
+        <TextInput placeholder={String(consommables.nom || "Nom")} value={nom} onChangeText={setNom} style={styles.textInput}/>
+        <TextInput placeholder={String(consommables.type || "Type")} value={type} onChangeText={setType} style={styles.textInput}/>
+        <TextInput placeholder={String(consommables.fournisseur || "Fournisseur")} value={fournisseur} onChangeText={setFournisseur} style={styles.textInput}/>
+        <TextInput placeholder={String(consommables.prix || "Prix")} value={prix} onChangeText={setPrix} style={styles.textInput}/>
+        <TextInput placeholder={String(consommables.quantite || "Quantité")} value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
         <View style={styles.champSaisiGroupButton}>
           <Pressable onPress={deleteDataConsommables}>
             <Image

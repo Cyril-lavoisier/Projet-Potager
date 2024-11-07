@@ -99,9 +99,9 @@ useEffect(() => {
         </Pressable>
       </View>
       <View style={styles.champSaisi}>
-        <TextInput placeholder={semis.Produit_nom} value={Variete_Produits_id} onChangeText={setVariete_Produits_id} style={styles.textInput}/>
-        <TextInput placeholder={semis.Variete_nom} value={Variete_id} onChangeText={setVariete_id} style={styles.textInput}/>
-        <TextInput placeholder={semis.quantite} value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
+        <TextInput placeholder={String(semis.Produit_nom || "Nom du produit")} value={Variete_Produits_id} onChangeText={setVariete_Produits_id} style={styles.textInput}/>
+        <TextInput placeholder={String(semis.Variete_nom || "Variete")} value={Variete_id} onChangeText={setVariete_id} style={styles.textInput}/>
+        <TextInput placeholder={String(semis.quantite || "Quantité")} value={quantite} onChangeText={setQuantite} style={styles.textInput}/>
         <View style={styles.champSaisiGroupButton}>
           <Pressable onPress={deleteDataSemis}>
             <Image

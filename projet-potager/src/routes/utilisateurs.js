@@ -4,12 +4,11 @@ const utilisateursController = require('../controllers/utilisateursController');
 
 //Route de récupération des données
 router.get('/', utilisateursController.getUtilisateurs);
-router.put('/', utilisateursController.updateUtilisateursNom);
-router.put('/', utilisateursController.updateUtilisateursPrenom);
-router.put('/', utilisateursController.updateUtilisateursAge);
-router.put('/', utilisateursController.updateUtilisateursInscription);
-router.put('/', utilisateursController.updateUtilisateursPays);
-router.put('/', utilisateursController.updateUtilisateursVille);
-router.put('/', utilisateursController.updateUtilisateursCodePostal);
+router.put('/nom', utilisateursController.updateDataNom);
+router.put('/prenom', utilisateursController.updateDataPrenom);
+router.put('/age', utilisateursController.updateDataAge);
+router.put('/pays', utilisateursController.updateDataPays);
+router.put('/ville', utilisateursController.updateDataVille);
+router.put('/code_postal', utilisateursController.updateDataCodePostal);
 
 module.exports = router;

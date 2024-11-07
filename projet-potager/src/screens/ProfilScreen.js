@@ -5,8 +5,8 @@ import axios from 'axios';
 
 const ProfilScreen = () => {
 
+//Initialisation des données
   const [utilisateurs, setUtilisateurs] = useState({});
-  const [isEditing, setIsEditing] = useState(false)
   const [nom, setNom] = useState(utilisateurs.nom || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
   const [prenom, setPrenom] = useState(utilisateurs.prenom || '');
   const [age, setAge] = useState(utilisateurs.age || '');
@@ -14,6 +14,15 @@ const ProfilScreen = () => {
   const [pays, setPays] = useState(utilisateurs.pays || '');
   const [ville, setVille] = useState(utilisateurs.ville || '');
   const [code_postal, setCodePostal] = useState(utilisateurs.code_postal || '');
+
+//Initialisation de l'edition des champs sur false
+  const [isEditingNom, setIsEditingNom] = useState(false);
+  const [isEditingPrenom, setIsEditingPrenom] = useState(false);
+  const [isEditingAge, setIsEditingAge] = useState(false);
+  const [isEditingPays, setIsEditingPays] = useState(false);
+  const [isEditingVille, setIsEditingVille] = useState(false);
+  const [isEditingCodePostal, setIsEditingCodePostal] = useState(false)
+
 
 useEffect(() => {
   getUtilisateurs()
@@ -30,9 +39,9 @@ useEffect(() => {
 const updateDataNom = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/nom', {
       nom,
+      id: 1,
     });
 
     if (response.status === 200) {
@@ -50,9 +59,9 @@ const updateDataNom = async () => {
 const updateDataPrenom = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/prenom', {
       prenom,
+      id: 1,
     });
 
     if (response.status === 200) {
@@ -70,29 +79,9 @@ const updateDataPrenom = async () => {
 const updateDataAge = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/age', {
       age,
-    });
-
-    if (response.status === 200) {
-      console.log("Succès", "Nom mis à jour avec succès");
-    } else {
-      console.log("Erreur", "Échec de la mise à jour");
-    }
-  } catch (error) {
-      console.log("Erreur", "Échec de la mise à jour");
-    console.error(error);
-  }
-};
-
-//Mise a jours Inscription
-const updateDataInscription = async () => {
-  try {
-    // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
       id: 1,
-      inscription,
     });
 
     if (response.status === 200) {
@@ -110,9 +99,9 @@ const updateDataInscription = async () => {
 const updateDataPays = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/pays', {
       pays,
+      id: 1,
     });
 
     if (response.status === 200) {
@@ -130,9 +119,9 @@ const updateDataPays = async () => {
 const updateDataVille = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/ville', {
       ville,
+      id: 1,
     });
 
     if (response.status === 200) {
@@ -150,9 +139,9 @@ const updateDataVille = async () => {
 const updateDataCodePostal = async () => {
   try {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
-    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs', {
-      id: 1,
+    const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/code_postal', {
       code_postal,
+      id: 1,
     });
 
     if (response.status === 200) {
@@ -169,16 +158,16 @@ const updateDataCodePostal = async () => {
     <View>
       {/*Affichage du nom*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.nom} value={nom} onChangeText={setNom} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.nom || "Nom d'utilisateur")} value={nom} onChangeText={setNom} style={styles.textInput} editable={isEditingNom}/>
+        <Pressable onPress={() => setIsEditingNom(!isEditingNom)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataNom}>
+        {isEditingNom && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataNom(); setIsEditingNom(!isEditingNom)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
@@ -189,16 +178,16 @@ const updateDataCodePostal = async () => {
       </View>
       {/*Affichage du prenom*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.prenom} value={prenom} onChangeText={setPrenom} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.prenom || "Prenom")} value={prenom} onChangeText={setPrenom} style={styles.textInput} editable={isEditingPrenom}/>
+        <Pressable onPress={() => setIsEditingPrenom(!isEditingPrenom)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataPrenom}>
+        {isEditingPrenom && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataPrenom(); setIsEditingPrenom(!isEditingPrenom)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
@@ -209,16 +198,16 @@ const updateDataCodePostal = async () => {
       </View>
       {/*Affichage de l'age*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.age} value={age} onChangeText={setAge} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.age || "Age")} value={age} onChangeText={setAge} style={styles.textInput} editable={isEditingAge}/>
+        <Pressable onPress={() => setIsEditingAge(!isEditingAge)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataAge}>
+        {isEditingAge && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataAge(); setIsEditingAge(!isEditingAge)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
@@ -229,36 +218,20 @@ const updateDataCodePostal = async () => {
       </View>
       {/*Affichage de la date inscription*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.inscription} value={inscription} onChangeText={setInscription} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
-          <Image
-            source={require('../assets/Modifier.png')}
-            style={styles.button}
-            resizeMode="contain"
-          />
-        </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataInscription}>
-          <Image
-            source={require('../assets/Enregistrer.png')}
-            style={styles.button}
-            resizeMode="contain"
-          />
-        </Pressable>
-        )}
+        <TextInput placeholder={String(utilisateurs.inscription || "Date d'inscription")} value={inscription} onChangeText={setInscription} style={styles.textInput} editable={false}/>
       </View>
       {/*Affichage du pays*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.pays} value={pays} onChangeText={setPays} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.pays || "Pays")} value={pays} onChangeText={setPays} style={styles.textInput} editable={isEditingPays}/>
+        <Pressable onPress={() => setIsEditingPays(!isEditingPays)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataPays}>
+        {isEditingPays && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataPays(); setIsEditingPays(!isEditingPays)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
@@ -269,16 +242,16 @@ const updateDataCodePostal = async () => {
       </View>
       {/*Affichage de la ville*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.ville} value={ville} onChangeText={setVille} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.ville || "Ville")} value={ville} onChangeText={setVille} style={styles.textInput} editable={isEditingVille}/>
+        <Pressable onPress={() => setIsEditingVille(!isEditingVille)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataVille}>
+        {isEditingVille && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataVille(); setIsEditingVille(!isEditingVille)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
@@ -289,16 +262,16 @@ const updateDataCodePostal = async () => {
       </View>
       {/*Affichage du code postal*/}
       <View style={styles.champSaisi}>
-        <TextInput placeholder={utilisateurs.code_postal} value={code_postal} onChangeText={setCodePostal} style={styles.textInput}  editable={isEditing}/>
-        <Pressable onPress={() => setIsEditing(true)}>
+        <TextInput placeholder={String(utilisateurs.code_postal || "Code postal")} value={code_postal} onChangeText={setCodePostal} style={styles.textInput} editable={isEditingCodePostal}/>
+        <Pressable onPress={() => setIsEditingCodePostal(!isEditingCodePostal)}>
           <Image
             source={require('../assets/Modifier.png')}
             style={styles.button}
             resizeMode="contain"
           />
         </Pressable>
-        {isEditing && ( // Affiche le bouton Enregistrer seulement si isEditing est true
-        <Pressable onPress={updateDataCodePostal}>
+        {isEditingCodePostal && ( // Affiche le bouton Enregistrer seulement si isEditing est true
+        <Pressable onPress={() => {updateDataCodePostal(); setIsEditingCodePostal(!isEditingCodePostal)}}>
           <Image
             source={require('../assets/Enregistrer.png')}
             style={styles.button}
