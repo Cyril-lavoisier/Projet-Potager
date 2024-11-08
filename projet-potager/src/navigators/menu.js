@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeStackNavigator from './HomeStackNavigator';
+import Connexion from './Connexion';
 import PlantationsScreen from '../screens/PlantationsScreen';
 import SemisScreen from '../screens/SemisScreen';
 import ConsommablesScreen from '../screens/ConsommablesScreen';
@@ -21,10 +21,11 @@ export default function Menu() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          TabEnabled: route.name !== 'Connexion', // Désactive le menu pour la page Connexion
           tabBarIcon: () => {
             let Icon;
             
-            if (route.name === 'HomeStackNavigator') {
+            if (route.name === 'Connexion') {
               Icon = require('../assets/Home.png');
             }
 
@@ -58,7 +59,7 @@ export default function Menu() {
           headerShown: false,
         })}
       >
-          <Tab.Screen styles={styles.button} name="HomeStackNavigator" component={HomeStackNavigator} options={{title: ''}}/>
+          <Tab.Screen styles={styles.button} name="Connexion" component={Connexion} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Plantations" component={PlantationsScreen} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Semis" component={SemisScreen} options={{title: ''}}/>
           <Tab.Screen styles={styles.button} name="Consommables" component={ConsommablesScreen} options={{title: ''}}/>
@@ -67,7 +68,7 @@ export default function Menu() {
           <Tab.Screen name="ProfilScreen" component={ProfilScreen} options={{ tabBarButton: () => null }}/>
           <Tab.Screen name="JardinsScreen" component={JardinsScreen} options={{ tabBarButton: () => null }}/>
         </Tab.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
     <View style={styles.bandeau}/>
     </View>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUser } from '../screens/UserContext';
 import { useNavigation } from '@react-navigation/native';
@@ -67,7 +67,9 @@ const LoginForm = () => {
         onChangeText={setPassword}
       />
 
-      <Button title="Se connecter" onPress={handleLogin} />
+      <Pressable style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Se connecter</Text>
+      </Pressable>
     </View>
   );
 };
@@ -88,10 +90,23 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 50,
-    borderColor: '#ddd',
+    borderColor: '#438c6b',
+    backgroundColor: 'white',
     borderWidth: 1,
     paddingHorizontal: 10,
     marginBottom: 15,
     borderRadius: 5,
+  },
+  button: {
+    backgroundColor: '#438c6b', // Couleur de fond
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#ffffff', // Couleur du texte
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
