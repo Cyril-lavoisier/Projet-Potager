@@ -3,40 +3,56 @@ import { View, Text, ScrollView, StyleSheet, Pressable, Image } from 'react-nati
 import { useNavigation } from '@react-navigation/native'; // Importe useNavigation si nécessaire
 import { getUtilisateurs } from '../services/api'; // Appel au service API
 import { getJardins } from '../services/api'; // Appel au service API
+import { useUser } from './UserContext';
 
 const HomeScreen = () => {
   const navigation = useNavigation(); // Hook pour accéder à l'objet navigation
   const [utilisateurs, setUtilisateurs] = useState({});
   const [Jardins, setJardins] = useState({});
+  const { user } = useUser();  // Accéder à l'état utilisateur depuis le contexte
+  console.log(user.id);
   
 
 useEffect(() => {
-  getUtilisateurs()
+  getUtilisateurs(user.id)
     .then(response => {
       console.log('Utilisateur reçu:', response.data);
-      setUtilisateurs(response.data); // Stocke l'objet utilisateur
+      //setUtilisateurs(response.data); // Stocke l'objet utilisateur
+      const utilisateurs = response.data;
+        setUtilisateurs(utilisateurs);
+        //setNom(utilisateurs.nom || '');
+        //setPrenom(utilisateurs.prenom || '');
+        //setAge(utilisateurs.age || '');
+        //setPays(utilisateurs.pays || '');
+        //setVille(utilisateurs.ville || '');
+        //setCodePostal(utilisateurs.code_postal || '');
     })
     .catch(error => {
       console.error("Erreur lors de la récupération de l'utilisateur:", error);
     });
-}, []);
+}, [user.id]);
 
 useEffect(() => {
-  getJardins()
+  getJardins(user.id)
     .then(response => {
       console.log('Jardins reçu:', response.data);
-      setJardins(response.data);
+      //setJardins(response.data);
+      const Jardins = response.data;
+        setJardins(Jardins);
+        //setNumero(Jardins.numero || '');
+        //setSuperficie(Jardins.superficie || '');
+        //setNombre_Parcelles(Jardins.nombre_parcelles || '');
     })
     .catch(error => {
       console.error("Erreur lors de la récupération des jardins:", error);
     });
-}, []);
+}, [user.id]);
 
   return (
     <ScrollView contentContainerStyle={styles.mainContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: 350}}>
         <Text>Bienvenu {/*{message ? message : 'Chargement...'}*/} {utilisateurs.prenom}</Text>
-        <Pressable onPress={() => navigation.navigate('Profil')}>
+        <Pressable onPress={() => navigation.navigate('ProfilScreen')}>
           <Image
             source={require('../assets/Profil.png')}
             style={styles.button}
@@ -50,7 +66,7 @@ useEffect(() => {
         <Text>Nombre de parcelles {Jardins.nombre_parcelles}</Text>
       </View>
       <View>
-        <Pressable onPress={() => navigation.navigate('Jardins')} style={styles.addButton}>
+        <Pressable onPress={() => navigation.navigate('JardinsScreen')} style={styles.addButton}>
           <Text>Ajouter un jardin</Text>
           <Image
             source={require('../assets/Ajouter.png')}
@@ -102,32 +118,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   }
 })
-
-//const [message, setMessage] = useState('');
-//const [utilisateurs, setUtilisateur] = useState([]); // Ajoute un état pour les utilisateurs
-  
-/*
-  useEffect(() => {
-    // Appel à l'API du backend
-    axios.get('http://192.168.1.26:3000/api/hello') // Appelle le backend Express
-      .then(response => {
-        console.log('Réponse reçue:', response.data); // Log la réponse pour vérification
-        setMessage(response.data.message);
-    })
-    .catch(error => {
-      console.error('Erreur lors de l\'appel API:', error);
-    });
-  }, []);
-
-  useEffect(() => {
-    // Appel à l'API pour récupérer les utilisateurs
-    axios.get('http://192.168.1.26:3000/api/utilisateurs')
-    .then(response => {
-      console.log('Utilisateur reçu:', response.data);
-      setUtilisateur(response.data); // Si c'est un objet unique
-    })
-    .catch(error => {
-      console.error("Erreur lors de la récupération de l'utilisateur:", error);
-    });
-  }, []);
-*/

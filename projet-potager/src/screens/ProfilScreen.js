@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TextInput, Pressable, Image } from 'react-native';
 import { getUtilisateurs } from '../services/api'; // Appel au service API
+import { useUser } from './UserContext';
 import axios from 'axios';
 
 const ProfilScreen = () => {
@@ -22,18 +23,29 @@ const ProfilScreen = () => {
   const [isEditingPays, setIsEditingPays] = useState(false);
   const [isEditingVille, setIsEditingVille] = useState(false);
   const [isEditingCodePostal, setIsEditingCodePostal] = useState(false)
+// Récupération id utilisateurs
+const { user } = useUser();  // Accéder à l'état utilisateur depuis le contexte
+console.log(user.id);
 
 
 useEffect(() => {
-  getUtilisateurs()
+  getUtilisateurs(user.id)
     .then(response => {
       console.log('Utilisateur reçu:', response.data);
-      setUtilisateurs(response.data); // Stocke l'objet utilisateur
+      //setUtilisateurs(response.data); // Stocke l'objet utilisateur
+      const data = response.data;
+        setUtilisateurs(data);
+        setNom(data.nom || '');
+        setPrenom(data.prenom || '');
+        setAge(data.age || '');
+        setPays(data.pays || '');
+        setVille(data.ville || '');
+        setCodePostal(data.code_postal || '');
     })
     .catch(error => {
       console.error("Erreur lors de la récupération de l'utilisateur:", error);
     });
-}, []);
+}, [user.id]);
 
 //Mise a jours Nom
 const updateDataNom = async () => {
@@ -41,7 +53,7 @@ const updateDataNom = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/nom', {
       nom,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {
@@ -61,7 +73,7 @@ const updateDataPrenom = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/prenom', {
       prenom,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {
@@ -81,7 +93,7 @@ const updateDataAge = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/age', {
       age,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {
@@ -101,7 +113,7 @@ const updateDataPays = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/pays', {
       pays,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {
@@ -121,7 +133,7 @@ const updateDataVille = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/ville', {
       ville,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {
@@ -141,7 +153,7 @@ const updateDataCodePostal = async () => {
     // Appelez ici votre API ou votre fonction de mise à jour avec axios
     const response = await axios.put('http://192.168.1.26:3000/api/utilisateurs/code_postal', {
       code_postal,
-      id: 1,
+      id: user.id,
     });
 
     if (response.status === 200) {

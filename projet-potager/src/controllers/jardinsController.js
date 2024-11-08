@@ -1,8 +1,10 @@
 const db = require('../../backend/db');
 
 exports.getJardins = (req, res) => {
-  const query = 'SELECT * FROM jardins LIMIT 1';
-  db.query(query, (error, results) => {
+  const userId = req.params.id; // Récupère l'id de l'utilisateur depuis les paramètres de l'URL
+  const query = 'SELECT * FROM jardins WHERE Utilisateurs_id = ?';
+
+  db.query(query, [userId], (error, results) => {
     if (error) {
       console.error('Erreur lors de la récupération des jardins:', error);
       res.status(500).json({ error: 'Erreur serveur' });

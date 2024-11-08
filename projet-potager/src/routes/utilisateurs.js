@@ -3,7 +3,7 @@ const router = express.Router();
 const utilisateursController = require('../controllers/utilisateursController');
 
 //Route de récupération des données
-router.get('/', utilisateursController.getUtilisateurs);
+router.get('/:id', utilisateursController.getUtilisateurs); //Passage de l'id dans l'URL de la requête
 router.put('/nom', utilisateursController.updateDataNom);
 router.put('/prenom', utilisateursController.updateDataPrenom);
 router.put('/age', utilisateursController.updateDataAge);

@@ -21,6 +21,7 @@ const soinsRoutes = require('../src/routes/soins');
 const soins_produitsRoutes = require('../src/routes/soinsProduits');
 const utilisateursRoutes = require('../src/routes/utilisateurs');
 const varieteRoutes = require('../src/routes/variete');
+const connexionRoutes = require('../src/routes/connexion');
 
 //Liste des lien vers les API
 app.use('/api/apports', apportsRoutes);
@@ -38,6 +39,7 @@ app.use('/api/soins', soinsRoutes);
 app.use('/api/soins_produits', soins_produitsRoutes);
 app.use('/api/utilisateurs', utilisateursRoutes);
 app.use('/api/variete', varieteRoutes);
+app.use('/api/connexion', connexionRoutes);
 
 app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);

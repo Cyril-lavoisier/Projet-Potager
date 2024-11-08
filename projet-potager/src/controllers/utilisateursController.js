@@ -1,8 +1,10 @@
 const db = require('../../backend/db');
 
 exports.getUtilisateurs = (req, res) => {
-  const query = 'SELECT * FROM utilisateurs LIMIT 1'; // Limite à un seul utilisateur
-  db.query(query, (error, results) => {
+  const userId = req.params.id; // Récupère l'id de l'utilisateur depuis les paramètres de l'URL
+  const query = 'SELECT * FROM utilisateurs WHERE id = ?';
+
+  db.query(query, [userId], (error, results) => {
     if (error) {
       console.error('Erreur lors de la récupération de l’utilisateur:', error);
       res.status(500).json({ error: 'Erreur serveur' });

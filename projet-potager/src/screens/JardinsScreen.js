@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, Image } from 'react-native';
 import { getParcelles } from '../services/api'; // Appel au service API
+import { useUser } from './UserContext';
 import axios from 'axios';
 
 const AjouterScreen = () => {
@@ -8,17 +9,25 @@ const AjouterScreen = () => {
   const [parcelles, setParcelles] = useState({});
   const [isEditing, setIsEditing] = useState(false)
   const [superficie, setSuperficie] = useState('');
+  const { user } = useUser();  // Accéder à l'état utilisateur depuis le contexte
+  console.log(user.id);
 
   useEffect(() => {
-    getParcelles()
+    getParcelles(user.id)
       .then(response => {
         console.log('Parcelles reçu:', response.data);
-        setParcelles(response.data); // Stocke l'objet utilisateur
+        //setParcelles(response.data); // Stocke l'objet utilisateur
+        const data = response.data;
+          setParcelles(data);
+          setNumero(data.numero || '');
+          setSuperficie(data.superficie || '');
+          setJardins_id(data.Jardins_id || '');
+          setJardins_Utilisateurs_id(data.Jardins_Utilisateurs_id || '');
       })
       .catch(error => {
         console.error("Erreur lors de la récupération des parcelles:", error);
       });
-  }, []);
+  }, [user.id]);
 
   const insertDataParcelles = async () => {
     try {

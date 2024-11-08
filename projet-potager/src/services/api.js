@@ -16,16 +16,16 @@ export const getConsommables = () => {
     return api.get('/consommables');
 };
 
-export const getJardins = () => {
-    return api.get('/jardins');
+export const getJardins = (id) => {
+    return api.get(`/jardins/${id}`);
 };
 
 export const getOutillages = () => {
     return api.get('/outillages');
 };
 
-export const getParcelles = () => {
-    return api.get('/parcelles');
+export const getParcelles = (id) => {
+    return api.get(`/parcelles/${id}`);
 };
 
 export const getPlantation = () => {
@@ -56,10 +56,14 @@ export const getSoinsProduits = () => {
     return api.get('/soinsProduits');
 };
 
-export const getUtilisateurs = () => {
-    return api.get('/utilisateurs');
+export const getUtilisateurs = (id) => {
+    return api.get(`/utilisateurs/${id}`); //Passage de l'id utilisateurs dans la requête API
 };
 
 export const getVariete = () => {
     return api.get('/variete');
+};
+
+export const getConnexion = () => {
+    return api.get('/connexion');
 };
