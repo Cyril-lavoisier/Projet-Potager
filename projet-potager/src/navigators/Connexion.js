@@ -57,6 +57,7 @@ const LoginForm = () => {
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
+        testID="email-input" 
       />
 
       <TextInput
@@ -65,9 +66,10 @@ const LoginForm = () => {
         secureTextEntry
         value={password}
         onChangeText={setPassword}
+        testID="password-input"
       />
 
-      <Pressable style={styles.button} onPress={handleLogin}>
+      <Pressable style={styles.button} onPress={handleLogin} testID="connexion-button">
         <Text style={styles.buttonText}>Se connecter</Text>
       </Pressable>
     </View>
