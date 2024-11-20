@@ -11,7 +11,7 @@ const PlantationsScreen = () => {
   const [varietes, setVarietes] = useState([]);
   const [Variete_Produits_id, setVariete_Produits_id] = useState(plantations.Variete_Produits_id || ''); //Initialisation de Nom avec utilisateurs.nom ou une chaine vide
   const [Variete_id, setVariete_id] = useState(plantations.Variete_id || '');
-  //const [date, setDate] = useState(plantations.date || '');
+  const [date, setDate] = useState(plantations.date || '');
   const [quantite, setQuantite] = useState(plantations.quantite || '');
   //Initialisation de l'edition des champs sur false
   const [isEditing, setIsEditing] = useState(false)
