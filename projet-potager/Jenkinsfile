@@ -7,6 +7,13 @@ pipeline {
     }
 
     stages {
+        stage('Check Node.js') {
+            steps {
+                sh 'node --version'
+                sh 'npm --version'
+            }
+        }
+        
         stage('Cloner le code') {
             steps {
                 git 'https://url-de-votre-repo.git'
