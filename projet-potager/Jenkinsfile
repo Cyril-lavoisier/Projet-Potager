@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    environment {
+        NODEJS_HOME = tool name: 'NodeJS'
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('Cloner le code') {
+            steps {
+                git 'https://url-de-votre-repo.git'
+            }
+        }
+        
+        stage('Installer les dépendances') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Tester l\'application') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Build frontend') {
+            steps {
+                sh 'npm run build' // Adapter la commande si nécessaire
+            }
+        }
+
+        stage('Déploiement du backend') {
+            steps {
+                sh '''
+                pm2 stop all || true
+                pm2 start server.js --name projet-potager
+                '''
+            }
+        }
+
+        stage('Nettoyage') {
+            steps {
+                cleanWs()
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline terminé'
+        }
+        failure {
+            echo 'Le pipeline a échoué'
+        }
+    }
+}
