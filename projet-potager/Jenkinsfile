@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODEJS_HOME = tool name: 'NodeJS' // Assure-toi que ce nom correspond à celui configuré
-        PATH = "C:\\Program Files\\:${env.PATH}"
+        PATH = "C:\\Program Files\\nodejs\\:${env.PATH}"
     }
 
     stages {
@@ -13,7 +13,7 @@ pipeline {
                 sh 'npm --version'
             }
         }
-        
+
         stage('Cloner le code') {
             steps {
                 git 'https://url-de-votre-repo.git'
