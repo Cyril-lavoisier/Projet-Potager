@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODEJS_HOME = tool name: 'NodeJS' // Assure-toi que ce nom correspond à celui configuré
-        PATH = "C:\Program Files\\:${env.PATH}"
+        PATH = "C:\\Program Files\\:${env.PATH}"
     }
 
     stages {
