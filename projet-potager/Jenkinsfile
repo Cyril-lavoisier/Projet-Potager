@@ -16,7 +16,7 @@ pipeline {
 
         stage('Cloner le code') {
             steps {
-                git 'https://url-de-votre-repo.git'
+                git 'https://github.com/Cyril-lavoisier/Projet-Potager.git', branch: 'main'
             }
         }
         
