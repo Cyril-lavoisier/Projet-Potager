@@ -23,7 +23,9 @@ pipeline {
 
         stage('Tester l\'application') {
             steps {
-                sh 'npm test'
+                dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
+                    sh 'npm test'
+                }
             }
         }
 
