@@ -10,7 +10,8 @@
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\" \"npx cypress open\"",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@expo/metro-runtime": "^4.0.1",
