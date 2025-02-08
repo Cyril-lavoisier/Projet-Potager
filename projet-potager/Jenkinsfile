@@ -15,8 +15,9 @@ pipeline {
         
         stage('Installer les dépendances') {
             steps {
-                dir('https://github.com/Cyril-lavoisier/Projet-Potager/Projet-Potager/package.json') {
-                sh 'npm install'
+                dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') { // Remplace par le bon chemin si nécessaire
+                    sh 'npm install'
+                }
             }
         }
 
