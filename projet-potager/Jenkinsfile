@@ -31,7 +31,9 @@ pipeline {
 */
         stage('Build frontend') {
             steps {
-                sh 'npm run build' // Adapter la commande si nécessaire
+                dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
+                    sh 'npm run build' // Adapter la commande si nécessaire
+                }
             }
         }
 
