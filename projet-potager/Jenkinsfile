@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODEJS_HOME = "C:\\Program Files\\nodejs"
-        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+        PATH = "${NODEJS_HOME}:${env.PATH}"
     }
 
     stages {
