@@ -1,23 +1,24 @@
-import express from 'express';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
+
+const consommablesRoutes = require('./routes/consommablesRoutes');
+const jardinsRoutes = require('./routes/jardinsRoutes');
+const outillagesRoutes = require('./routes/outillagesRoutes');
+const parcellesRoutes = require('./routes/parcellesRoutes');
+const plantationRoutes = require('./routes/plantationRoutes');
+const produitsRoutes = require('./routes/produitsRoutes');
+const semisRoutes = require('./routes/semisRoutes');
+// const utilisateursRoutes = require('./routes/utilisateursRoutes');
+const varieteRoutes = require('./routes/varieteRoutes');
+const authRoutes = require('./routes/authRoutes');
+
+
 app.use(cors()); // Autorise toutes les origines
 app.use(express.json());
 
-//Liste des routes
-import consommablesRoutes from './routes/consommablesRoutes.js';
-import jardinsRoutes from './routes/jardinsRoutes.js';
-import outillagesRoutes from './routes/outillagesRoutes.js';
-import parcellesRoutes from './routes/parcellesRoutes.js';
-import plantationRoutes from './routes/plantationRoutes.js';
-import produitsRoutes from './routes/produitsRoutes.js';
-import semisRoutes from './routes/semisRoutes.js';
-//import utilisateursRoutes from './routes/utilisateursRoutes.js';
-import varieteRoutes from './routes/varieteRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-
-//Liste des lien vers les API
+// Liste des lien vers les API
 app.use('/api/consommables', consommablesRoutes);
 app.use('/api/jardins', jardinsRoutes);
 app.use('/api/outillages', outillagesRoutes);
@@ -25,7 +26,7 @@ app.use('/api/parcelles', parcellesRoutes);
 app.use('/api/plantation', plantationRoutes);
 app.use('/api/produits', produitsRoutes);
 app.use('/api/semis', semisRoutes);
-//app.use('/api/utilisateurs', utilisateursRoutes);
+// app.use('/api/utilisateurs', utilisateursRoutes);
 app.use('/api/variete', varieteRoutes);
 app.use('/api/auth', authRoutes);
 
