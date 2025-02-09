@@ -4,6 +4,7 @@ pipeline {
     environment {
         NODEJS_HOME = "C:\\Program Files\\nodejs"
         PATH = "${NODEJS_HOME}:${env.PATH}"
+        EAS_NO_VCS = '1'
     }
 
     stages {
@@ -29,7 +30,7 @@ pipeline {
             }
         }
     */
-        stage('Build expo') {
+        stage('Build android expo') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
                     sh 'eas build -p android' // Build avec expoGo
