@@ -33,8 +33,7 @@ pipeline {
         stage('Build android expo') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
-                    sh 'eas login --token iQC6yRXoK-etJDAaZSTfScOnNMtmJ16OK2W_nij3'
-                    sh 'eas build -p android' // Build avec expoGo
+                    sh 'EXPO_TOKEN=iQC6yRXoK-etJDAaZSTfScOnNMtmJ16OK2W_nij3 eas build -p android'
                 }
             }
         }
