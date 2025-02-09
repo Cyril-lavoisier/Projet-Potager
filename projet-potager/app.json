@@ -7,6 +7,9 @@
       "eas": {
         "projectId": "4007ffd7-3de2-415f-a16c-aadcf411a72d"
       }
+    },
+    "android": {
+      "package": "com.cyril.projetpotager"
     }
   }
 }
