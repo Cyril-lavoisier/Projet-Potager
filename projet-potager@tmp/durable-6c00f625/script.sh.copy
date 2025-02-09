@@ -1,0 +1,1 @@
+EXPO_TOKEN=iQC6yRXoK-etJDAaZSTfScOnNMtmJ16OK2W_nij3 eas build -p android

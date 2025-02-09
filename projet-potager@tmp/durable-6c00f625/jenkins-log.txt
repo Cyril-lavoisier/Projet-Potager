@@ -1,0 +1,25 @@
++ EXPO_TOKEN=iQC6yRXoK-etJDAaZSTfScOnNMtmJ16OK2W_nij3
++ eas build -p android
+(node:7660) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Using EAS CLI without version control system is not recommended, use this mode only if you know what you are doing.
+Failed to read the app config from the project using "npx expo config" command: spawn cmd.exe ENOENT.
+Falling back to the version of "@expo/config" shipped with the EAS CLI.
+Resolved "production" environment for the build. Learn more: https://docs.expo.dev/eas/environment-variables/#setting-the-environment-for-your-builds
+No environment variables with visibility "Plain text" and "Sensitive" found for the "production" environment on EAS.
+
+- Incrementing versionCode from 11 to 12.
+✔ Incremented versionCode from 11 to 12.
+✔ Using remote Android credentials (Expo server)
+✔ Using Keystore from configuration: Build Credentials Ny3WAeaEbS (default)
+
+Compressing project files and uploading to EAS Build. Learn more: https://expo.fyi/eas-build-archive
+- Uploading to EAS Build (0 / 533 KB)
+✔ Uploaded to EAS 
+- Computing project fingerprint
+✔ Computed project fingerprint
+
+Build details: https://expo.dev/accounts/krumy/projects/projet-potager/builds/e7c70ef5-1de8-4291-a0b4-4930dba8a703
+
+Waiting for build to complete. You can press Ctrl+C to exit.
+- Waiting for build to complete.
