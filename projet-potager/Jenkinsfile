@@ -28,7 +28,7 @@ pipeline {
                 }
             }
         }
-*/
+    */
         stage('Build expo') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
@@ -36,7 +36,7 @@ pipeline {
                 }
             }
         }
-
+    /*
         stage('Déploiement du backend') {
             steps {
                 sh '''
@@ -45,7 +45,7 @@ pipeline {
                 '''
             }
         }
-
+    */
         stage('Nettoyage') {
             steps {
                 cleanWs()
