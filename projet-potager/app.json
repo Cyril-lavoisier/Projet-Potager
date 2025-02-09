@@ -2,6 +2,11 @@
   "expo": {
     "name": "projet-potager",
     "slug": "projet-potager",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "4007ffd7-3de2-415f-a16c-aadcf411a72d"
+      }
+    }
   }
 }

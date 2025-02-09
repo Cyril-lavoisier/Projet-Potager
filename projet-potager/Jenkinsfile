@@ -29,10 +29,10 @@ pipeline {
             }
         }
 */
-        stage('Build frontend') {
+        stage('Build expo') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
-                    sh 'expo build:android' // Build avec expoGo
+                    sh 'eas build -p android' // Build avec expoGo
                 }
             }
         }
