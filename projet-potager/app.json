@@ -3,13 +3,13 @@
     "name": "projet-potager",
     "slug": "projet-potager",
     "version": "1.0.0",
+    "android": {
+      "package": "com.cyril.projetpotager"
+    },
     "extra": {
       "eas": {
         "projectId": "4007ffd7-3de2-415f-a16c-aadcf411a72d"
       }
-    },
-    "android": {
-      "package": "com.cyril.projetpotager"
     }
   }
 }
