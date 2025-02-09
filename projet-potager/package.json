@@ -2,7 +2,6 @@
   "name": "projet-potager",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "start:backend": "node backend/index.js",
     "start:frontend": "expo start",
