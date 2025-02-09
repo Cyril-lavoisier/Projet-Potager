@@ -32,7 +32,7 @@ pipeline {
         stage('Build frontend') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
-                    sh 'npm run build' // Adapter la commande si nécessaire
+                    sh 'expo build:android' // Build avec expoGo
                 }
             }
         }
