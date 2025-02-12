@@ -14,11 +14,10 @@ const semisRoutes = require('./routes/semisRoutes');
 const varieteRoutes = require('./routes/varieteRoutes');
 const authRoutes = require('./routes/authRoutes');
 
-
-app.use(cors()); // Autorise toutes les origines
+app.use(cors()); 
 app.use(express.json());
 
-// Liste des lien vers les API
+// Liste des routes API
 app.use('/api/consommables', consommablesRoutes);
 app.use('/api/jardins', jardinsRoutes);
 app.use('/api/outillages', outillagesRoutes);
@@ -30,9 +29,14 @@ app.use('/api/semis', semisRoutes);
 app.use('/api/variete', varieteRoutes);
 app.use('/api/auth', authRoutes);
 
-app.listen(port, () => {
-  console.log(`Serveur démarré sur le port ${port}`);
-});
+// Lancer le serveur uniquement si le fichier est exécuté directement
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Serveur démarré sur le port ${port}`);
+  });
+}
+
+module.exports = app; // Exporter l’application pour les tests
 
 
 
