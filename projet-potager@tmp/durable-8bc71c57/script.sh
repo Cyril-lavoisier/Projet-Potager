@@ -1,0 +1,1 @@
+npx jest --testTimeout=10000

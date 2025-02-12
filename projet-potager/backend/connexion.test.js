@@ -19,5 +19,6 @@ describe('Test de connexion utilisateur', () => {
 
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty('error', 'Identifiants incorrects.'); // ✅ Modifié pour correspondre au contrôleur
+    done();
   });
 });
