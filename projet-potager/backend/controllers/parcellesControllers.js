@@ -1,6 +1,6 @@
-import ParcellesModel from '../models/ParcellesModel.js';
+const ParcellesModel = require('../models/ParcellesModel.js');
 
-export const getAllConsommables = async (req, res) => {
+const getAllConsommables = async (req, res) => {
   try {
     const consommables = await ParcellesModel.getAll();
     res.json(consommables);
@@ -9,7 +9,7 @@ export const getAllConsommables = async (req, res) => {
   }
 };
 
-export const createConsommables = async (req, res) => {
+const createConsommables = async (req, res) => {
   try {
     const consommables = await ParcellesModel.create();
     res.json(consommables);
@@ -18,7 +18,7 @@ export const createConsommables = async (req, res) => {
   }
 };
 
-export const updateConsommables = async (req, res) => {
+const updateConsommables = async (req, res) => {
   try {
     const consommables = await ParcellesModel.update();
     res.json(consommables);
@@ -27,11 +27,18 @@ export const updateConsommables = async (req, res) => {
   }
 };
 
-export const deleteConsommables = async (req, res) => {
+const deleteConsommables = async (req, res) => {
   try {
     const consommables = await ParcellesModel.delete();
     res.json(consommables);
   } catch (error) {
     res.status(500).json({ error: 'Erreur lors de la suppression des consommables' });
   }
+};
+
+module.exports = {
+  getAllConsommables,
+  createConsommables,
+  updateConsommables,
+  deleteConsommables,
 };

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   async getAll() {
     // Code pour récupérer les consommables
   },

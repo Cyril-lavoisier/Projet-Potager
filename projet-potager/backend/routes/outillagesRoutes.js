@@ -1,16 +1,11 @@
-import express from 'express';
-import {
-  //getAllJardins,
-  //createJardins,
-  //updateJardins,
-  //deleteJardins,
-} from '../controllers/jardinsControllers.js';
+const express = require('express');
+// const { getAllJardins, createJardins, updateJardins, deleteJardins } = require('../controllers/jardinsControllers.js');
 
 const router = express.Router();
 
-//router.get('/', getAllJardins);
-//router.post('/', createJardins);
-//router.put('/', updateJardins);
-//router.delete('/', deleteJardins);
+// router.get('/', getAllJardins);
+// router.post('/', createJardins);
+// router.put('/', updateJardins);
+// router.delete('/', deleteJardins);
 
-export default router;
+module.exports = router;

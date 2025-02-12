@@ -1,10 +1,10 @@
-import express from 'express';
-import {
+const express = require('express');
+const {
   getAllConsommables,
   createConsommables,
   updateConsommables,
   deleteConsommables,
-} from '../controllers/consommablesControllers.js';
+} = require('../controllers/consommablesControllers.js');
 
 const router = express.Router();
 
@@ -13,4 +13,4 @@ router.post('/', createConsommables);
 router.put('/', updateConsommables);
 router.delete('/', deleteConsommables);
 
-export default router;
+module.exports = router;

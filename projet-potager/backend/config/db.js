@@ -1,14 +1,15 @@
-import mysql from 'mysql2/promise';
+const mysql = require('mysql2/promise');
 
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'Cl15991/60/42',
   database: 'app_potager',
+  charset: 'utf8mb4'  // Ajout du charset
 });
 
 // Vérification de la connexion
-(async () => {
+(async function () {
   try {
     await db.getConnection();
     console.log('Connecté à la base de données MySQL');
@@ -17,4 +18,4 @@ const db = mysql.createPool({
   }
 })();
 
-export default db;
+module.exports = db;

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../index'); // Importer l'application
+const app = require('./index'); // Importer l'application
 
 describe('Test de connexion utilisateur', () => {
   it('devrait renvoyer un token pour une connexion valide', async () => {
