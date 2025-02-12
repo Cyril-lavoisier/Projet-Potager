@@ -21,15 +21,15 @@ pipeline {
                 }
             }
         }
-    /*
+
         stage('Tester l\'application') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {
-                    sh 'npm test'
+                    sh 'npx jest --testTimeout=10000'
                 }
             }
         }
-    */
+        
         stage('Build android expo') {
             steps {
                 dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') {

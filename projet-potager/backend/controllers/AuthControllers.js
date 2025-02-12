@@ -1,6 +1,6 @@
-import { loginUtilisateur } from '../models/AuthModel.js';
+const { loginUtilisateur } = require('../models/AuthModel.js');
 
-export const login = async (req, res) => {
+exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -20,3 +20,4 @@ export const login = async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 };
+

@@ -1,6 +1,6 @@
-import db from '../config/db.js';
+const db = require('../config/db.js');
 
-export const loginUtilisateur = async (email, password) => {
+const loginUtilisateur = async (email, password) => {
   try {
     const [rows] = await db.execute(
       'SELECT * FROM utilisateurs WHERE email = ? AND password = ?',
@@ -11,3 +11,5 @@ export const loginUtilisateur = async (email, password) => {
     throw error;
   }
 };
+
+module.exports = { loginUtilisateur };
