@@ -1,7 +1,3 @@
-import 'react-native-polyfill-globals/auto';
-import { Buffer } from 'buffer';
-import 'react-native-fetch-api';
-global.Buffer = Buffer;
 import { registerRootComponent } from 'expo';
 import App from './App';
 
