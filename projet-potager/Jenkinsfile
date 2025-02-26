@@ -16,7 +16,7 @@ pipeline {
         
         stage('Installer les dépendances') {
             steps {
-                dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') { // Remplace par le bon chemin si nécessaire
+                dir('C:\\Users\\Cyril\\Desktop\\Projet-Potager\\projet-potager') { 
                     sh 'npm install --legacy-peer-deps'
                 }
             }
